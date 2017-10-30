@@ -16,7 +16,7 @@ public class MainWindow extends JFrame{
     String polynomial = "";
     String przesylanyCiag = "";    
     //--------------------------------------------------------------------------------------------------------
-    public MainWindow(){  
+    public MainWindow(){  //OPERACJE INICJALIZACJI OKNA
         super("Detekcja Błędów");
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,26 +81,26 @@ public class MainWindow extends JFrame{
     ArrayList<JRadioButton> listOfJRadioButtons = new ArrayList();
     ButtonGroup grupaRadiowa = new ButtonGroup();
     for(Integer i = 0;  i<6; i++){
-        JRadioButton roboczy = new JRadioButton();
-        grupaRadiowa.add(roboczy);
-        listOfJRadioButtons.add(roboczy);
+        JRadioButton roboczyRadioButton = new JRadioButton();
+        grupaRadiowa.add(roboczyRadioButton);
+        listOfJRadioButtons.add(roboczyRadioButton);
         
-        layoutSprezynowy.putConstraint( SpringLayout.EAST, roboczy, -5, SpringLayout.WEST, listOfDataControlTextFields.get(i) );
-        layoutSprezynowy.putConstraint( SpringLayout.NORTH, roboczy, 0, SpringLayout.NORTH, listOfDataControlTextFields.get(i) );
+        layoutSprezynowy.putConstraint(SpringLayout.EAST, roboczyRadioButton, -5, SpringLayout.WEST, listOfDataControlTextFields.get(i) );
+        layoutSprezynowy.putConstraint(SpringLayout.NORTH, roboczyRadioButton, 0, SpringLayout.NORTH, listOfDataControlTextFields.get(i) );
         
-        roboczy.setName(i.toString());
-        roboczy.addItemListener(new ItemListener() {
+        roboczyRadioButton.setName(i.toString());
+        roboczyRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                Integer textFieldIndex = Integer.parseInt( roboczy.getName() );
+                Integer textFieldIndex = Integer.parseInt(roboczyRadioButton.getName() );
                     JTextField fieldToChangeState = (JTextField)listOfDataControlTextFields.get(textFieldIndex);
-                if(roboczy.isSelected())
-                    fieldToChangeState.setEditable(true);
+                if(roboczyRadioButton.isSelected())
+                    fieldToChangeState.setEditable(true);//Każde z tych pol nasluchuje zmiany stanu na "editable".
+                                                         //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola
                 else{
-                    fieldToChangeState.setEditable(false);
+                   //fieldToChangeState.setEditable(false);  //TODO obecnie zbędne zabezpieczenie, rozważyć usunięcie linijki
                     fieldToChangeState.setText("");
                 }
-                poleTekstowePrzesylanyCiag.setText("");
                 poleTekstoweOdebranyCiag.setText("");
                 poleTekstoweWykryteBledy.setText("");
                 poleTekstowePoprawionyBinarny.setText("");
@@ -108,8 +108,8 @@ public class MainWindow extends JFrame{
             }
         });
         if(i<2)
-        roboczy.setEnabled(false);
-        okno.add(roboczy);
+        roboczyRadioButton.setEnabled(false);
+        okno.add(roboczyRadioButton);
     }    
     //--------------------------------------------------------------------------------------------------------
     poleTekstoweWyslanyZnak.addActionListener(new ActionListener() {
@@ -220,9 +220,13 @@ public class MainWindow extends JFrame{
                         data = new PolynomialData(przesylanyCiag,6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
                         checksum = new PolynomialData(data.getParts());
                         break;
-                    case 5:
                     case 4:
                         polynomial = "10001000000100001"; //crcItu
+                        data = new PolynomialData(przesylanyCiag,4,7,4,1,1);
+                        checksum = new PolynomialData(data.getParts());
+                        break;
+                    case 5:
+                        polynomial = "10001000000100101"; //SDLC
                         data = new PolynomialData(przesylanyCiag,4,7,4,1,1);
                         checksum = new PolynomialData(data.getParts());
                         break;
@@ -248,6 +252,11 @@ public class MainWindow extends JFrame{
                             polynomialFormat[12]=1; polynomialFormat[13]=1; polynomialFormat[14]=1; 
                             break;
                         case "10001000000100001":
+                            polynomialFormat = new int[5];
+                            polynomialFormat[0]=4; polynomialFormat[1]=7; polynomialFormat[2]=4; polynomialFormat[3]=1;
+                            polynomialFormat[4]=1;
+                            break;
+                        case "10001000000100101":
                             polynomialFormat = new int[5];
                             polynomialFormat[0]=4; polynomialFormat[1]=7; polynomialFormat[2]=4; polynomialFormat[3]=1;
                             polynomialFormat[4]=1;
@@ -359,7 +368,7 @@ public class MainWindow extends JFrame{
                 przesylanyCiag = data2.returnAsString();
                 poleTekstoweDoZaklocenia.setEditable(true);
                 poleTekstoweDoZaklocenia.setText(data2.returnAsString());
-                poleTekstoweWielomianSDLC.setText("10001000000100001");
+                poleTekstoweWielomianSDLC.setText("10001000000100101");
                 poleTekstoweWielomianSDLC.setEditable(false);
             }
         });            
