@@ -98,7 +98,6 @@ public class MainWindow extends JFrame{
                     fieldToChangeState.setEditable(true);//Każde z tych pol nasluchuje zmiany stanu na "editable".
                                                          //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola
                 else{
-                   //fieldToChangeState.setEditable(false);  //TODO obecnie zbędne zabezpieczenie, rozważyć usunięcie linijki
                     fieldToChangeState.setText("");
                 }
                 poleTekstoweOdebranyCiag.setText("");
@@ -115,25 +114,25 @@ public class MainWindow extends JFrame{
     poleTekstoweWyslanyZnak.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            for(int i = 2; i<listOfTextFields.size(); i++)
+            for(int i = 2; i<listOfTextFields.size(); i++)//RESET STANU OKNA 
                 listOfTextFields.get(i).setText("");
             poleTekstoweDoZaklocenia.setEditable(false);
             grupaRadiowa.clearSelection();
-            
-            String inString = poleTekstoweWyslanyZnak.getText();
-            String binaryString = "";
-            binaryString = ParityControllerPositive.convertStringToBinaryString(inString);                                
-            poleTekstoweWyslanyBinarny.setText(binaryString);
-            
-            if(! poleTekstoweWyslanyZnak.getText().isEmpty()){
-                int i = 0;
+
+            if( ! poleTekstoweWyslanyZnak.getText().isEmpty()){
+                String inString = poleTekstoweWyslanyZnak.getText();//KONWERSJA ZNAKU NA BINARNY
+                String binaryString = "";
+                binaryString = ParityControllerPositive.convertStringToBinaryString(inString);                                
+                poleTekstoweWyslanyBinarny.setText(binaryString);
+                
+                int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW
                 for(; i<2; i++)
                     listOfJRadioButtons.get(i).setEnabled(true);         
                 for(; i<6; i++)
                     listOfJRadioButtons.get(i).setEnabled(false); 
             }
             else{
-                int i = 0;
+                int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW (ODWROTNA DO POWYŻSZEJ)
                 for(; i<2; i++)
                     listOfJRadioButtons.get(i).setEnabled(false);         
                 for(; i<6; i++)
@@ -147,6 +146,12 @@ public class MainWindow extends JFrame{
         public void actionPerformed(ActionEvent ae) {
             String receivedString = poleTekstoweDoZaklocenia.getText();
             boolean poprawne = isStringBinaryDigitsOnly(receivedString);
+            if(!poprawne)
+                JOptionPane.showMessageDialog(okno, "W polu tekstowym znajdują się symbole inne niż \"0\" i \"1\"");
+            if(poleTekstoweDoZaklocenia.getText().length() != poleTekstowePrzesylanyCiag.getText().length()){
+                poprawne = false;
+                JOptionPane.showMessageDialog(okno, "Liczba znaków nie odpowiada przesyłanemu ciągowi!");
+            }
             if(poprawne){
                 poleTekstoweOdebranyCiag.setText( receivedString );
 
@@ -277,7 +282,7 @@ public class MainWindow extends JFrame{
                 }
             }    
         }
-//--------------------------------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------------------------------
             private boolean isStringBinaryDigitsOnly(String receivedString) {
                 char charToCheck;
                 boolean isCorrect = true;
@@ -287,10 +292,8 @@ public class MainWindow extends JFrame{
                     if(charToCheck != '0' && charToCheck != '1')
                         isCorrect = false;
                 }
-                
                 return isCorrect;
-            }
-        
+            }  
     });
 //--------------------------------------------------------------------------------------------------------
     poleTekstoweBitParzystosci.addPropertyChangeListener("editable", new PropertyChangeListener() {
@@ -322,7 +325,7 @@ public class MainWindow extends JFrame{
             public void propertyChange(PropertyChangeEvent evt) {
                 selectedRadioButtonTag = 2;
                 PolynomialData data2 = new PolynomialData(1,13,2,1);
-                //poleTekstowePrzesylanyCiag.setText(data.returnAsString());
+                poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
                 przesylanyCiag = data2.returnAsString();
                 poleTekstoweDoZaklocenia.setEditable(true);
                 poleTekstoweDoZaklocenia.setText(data2.returnAsString());
@@ -336,7 +339,7 @@ public class MainWindow extends JFrame{
             public void propertyChange(PropertyChangeEvent evt) {
                 selectedRadioButtonTag = 3;
                 PolynomialData data2 = new PolynomialData(6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
-                //poleTekstowePrzesylanyCiag.setText(data.returnAsString());
+                poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
                 przesylanyCiag = data2.returnAsString();
                 poleTekstoweDoZaklocenia.setEditable(true);
                 poleTekstoweDoZaklocenia.setText(data2.returnAsString());
@@ -350,7 +353,7 @@ public class MainWindow extends JFrame{
             public void propertyChange(PropertyChangeEvent evt) {
                 selectedRadioButtonTag = 4;
                 PolynomialData data2 = new PolynomialData(4,7,4,1,1);
-                //poleTekstowePrzesylanyCiag.setText(data.returnAsString());
+                poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
                 przesylanyCiag = data2.returnAsString();
                 poleTekstoweDoZaklocenia.setEditable(true);
                 poleTekstoweDoZaklocenia.setText(data2.returnAsString());
@@ -364,7 +367,7 @@ public class MainWindow extends JFrame{
             public void propertyChange(PropertyChangeEvent evt) {
                 selectedRadioButtonTag = 5;
                 PolynomialData data2 = new PolynomialData(4,7,4,1,1);
-                //poleTekstowePrzesylanyCiag.setText(data.returnAsString());
+                poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
                 przesylanyCiag = data2.returnAsString();
                 poleTekstoweDoZaklocenia.setEditable(true);
                 poleTekstoweDoZaklocenia.setText(data2.returnAsString());
