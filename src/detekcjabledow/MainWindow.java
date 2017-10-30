@@ -204,7 +204,7 @@ public class MainWindow extends JFrame{
                                 poleTekstoweOdebranyZnak.setText(odczytanyZnakSBuilder);
 
 
-                            //wykryte bledy = jakie 
+                            //wykryte bledy = jakie l
                             //jesli pojedynczy blad, 
                                                         //ktory bit zostal poprawiony
                                                         //wtedy poprawiony binarny = poprawiony binarny
