@@ -114,7 +114,7 @@ public class MainWindow extends JFrame{
     poleTekstoweWyslanyZnak.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            for(int i = 2; i<listOfTextFields.size(); i++)//RESET STANU OKNA 
+            for(int i = 1; i<listOfTextFields.size(); i++)//RESET STANU OKNA 
                 listOfTextFields.get(i).setText("");
             poleTekstoweDoZaklocenia.setEditable(false);
             grupaRadiowa.clearSelection();
