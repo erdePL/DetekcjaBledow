@@ -1,4 +1,4 @@
-package logic;
+package businesslogic;
 
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;

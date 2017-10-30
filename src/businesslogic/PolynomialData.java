@@ -1,5 +1,5 @@
 
-package logic;
+package businesslogic;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

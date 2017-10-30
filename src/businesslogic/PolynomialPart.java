@@ -1,4 +1,4 @@
-package logic;
+package businesslogic;
 
 
 import java.util.LinkedList;
