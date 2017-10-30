@@ -96,7 +96,7 @@ public class MainWindow extends JFrame{
                     JTextField fieldToChangeState = (JTextField)listOfDataControlTextFields.get(textFieldIndex);
                 if(roboczyRadioButton.isSelected())
                     fieldToChangeState.setEditable(true);//Każde z tych pol nasluchuje zmiany stanu na "editable".
-                                                         //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola
+                                                         //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola//mergetest
                 else{
                    //fieldToChangeState.setEditable(false);  //TODO obecnie zbędne zabezpieczenie, rozważyć usunięcie linijki
                     fieldToChangeState.setText("");
