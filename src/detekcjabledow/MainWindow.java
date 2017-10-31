@@ -13,7 +13,6 @@ import javax.swing.*;
 
 public class MainWindow extends JFrame{
     int selectedRadioButtonTag = -1;
-    String polynomial = "";
     String przesylanyCiag = "";    
 //--------------------------------------------------------------------------------------------------------
     public MainWindow(){  //OPERACJE INICJALIZACJI OKNA
@@ -237,9 +236,9 @@ public class MainWindow extends JFrame{
             if(poprawne){
                 poleTekstoweOdebranyCiag.setText( receivedString );
 
-                String polynomial = "";//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
+                String polynomialString = "";//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
                 PolynomialData data;
-                PolynomialData checksum = null;
+                PolynomialData checksumPolDat = null;
 
                 switch (selectedRadioButtonTag){//INICJALIZACJA DANYCH W ZALEZNOSCI OD WYBRANEGO TYPU SPRAWDZANIA POPRAWNOSCI,
                     case 0:                     //ORAZ WYWOLANIE ODPOWIADAJACYCH FUNKCJI SPRAWDZAJACYCH
@@ -249,28 +248,28 @@ public class MainWindow extends JFrame{
                         hammingCheckingAndUpdatingTextFields(receivedString);
                         break;
                     case 2:
-                        polynomial = "11000000000000101";//crc16
+                        polynomialString = "11000000000000101";//crc16
                         data = new PolynomialData(przesylanyCiag,1,13,2,1);
-                        checksum = new PolynomialData(data.getParts());
-                        polynomialCheckingAndUpdatingTextFields(checksum,polynomial);
+                        checksumPolDat = new PolynomialData(data.getParts());
+                        polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                         break;
                     case 3:
-                        polynomial = "100000100110000010001110110110111";//crc32
+                        polynomialString = "100000100110000010001110110110111";//crc32
                         data = new PolynomialData(przesylanyCiag,6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
-                        checksum = new PolynomialData(data.getParts());
-                        polynomialCheckingAndUpdatingTextFields(checksum,polynomial);
+                        checksumPolDat = new PolynomialData(data.getParts());
+                        polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                         break;
                     case 4:
-                        polynomial = "10001000000100001"; //crcItu
+                        polynomialString = "10001000000100001"; //crcItu
                         data = new PolynomialData(przesylanyCiag,4,7,4,1,1);
-                        checksum = new PolynomialData(data.getParts());
-                        polynomialCheckingAndUpdatingTextFields(checksum,polynomial);
+                        checksumPolDat = new PolynomialData(data.getParts());
+                        polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                         break;
                     case 5:
-                        polynomial = "10001000000100101"; //SDLC
+                        polynomialString = "10001000000100101"; //SDLC
                         data = new PolynomialData(przesylanyCiag,4,7,4,1,1);
-                        checksum = new PolynomialData(data.getParts());
-                        polynomialCheckingAndUpdatingTextFields(checksum,polynomial);
+                        checksumPolDat = new PolynomialData(data.getParts());
+                        polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                         break;
                 }
             }    
@@ -359,7 +358,6 @@ public class MainWindow extends JFrame{
                     polynomialFormat[0]=4; polynomialFormat[1]=7; polynomialFormat[2]=4; polynomialFormat[3]=1;
                     polynomialFormat[4]=1;
                     break;
-
                 default:
                     polynomialFormat = new int[0];
             }

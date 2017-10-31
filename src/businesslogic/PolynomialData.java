@@ -2,9 +2,6 @@
 package businesslogic;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class PolynomialData {
     ArrayList<PolynomialPart> parts;

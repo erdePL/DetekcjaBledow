@@ -1,7 +1,5 @@
 package businesslogic;
 
-import java.util.ArrayList;
-
 public class HammingController extends ParityControllerPositive{
     public static String addHammingControlToString (String inWord){
         StringBuilder hammingProtectedWord = new StringBuilder(inWord);
