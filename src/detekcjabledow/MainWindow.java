@@ -60,7 +60,7 @@ public class MainWindow extends JFrame{
     JTextField poleTekstoweWielomianCRCITU = new JTextField();listOfTextFields.add(poleTekstoweWielomianCRCITU);       listOfDataControlTextFields.add(poleTekstoweWielomianCRCITU);
     JTextField poleTekstoweWielomianSDLC = new JTextField();listOfTextFields.add(poleTekstoweWielomianSDLC );          listOfDataControlTextFields.add(poleTekstoweWielomianSDLC);
     JTextField poleTekstowePrzesylanyCiag = new JTextField();listOfTextFields.add(poleTekstowePrzesylanyCiag); 
-    JTextField poleTekstoweDoZaklocenia = new JTextField();listOfTextFields.add(poleTekstoweDoZaklocenia);             //BinaryDigitsInputVerifier binInputVerifier = new BinaryDigitsInputVerifier(); poleTekstoweDoZaklocenia.setInputVerifier(binInputVerifier);
+    JTextField poleTekstoweDoZaklocenia = new JTextField();listOfTextFields.add(poleTekstoweDoZaklocenia);
     JTextField poleTekstoweOdebranyCiag = new JTextField();listOfTextFields.add(poleTekstoweOdebranyCiag); 
     JTextField poleTekstoweWykryteBledy = new JTextField();listOfTextFields.add(poleTekstoweWykryteBledy);   
     JTextField poleTekstowePoprawionyBinarny = new JTextField();listOfTextFields.add(poleTekstowePoprawionyBinarny); 
@@ -131,7 +131,7 @@ public class MainWindow extends JFrame{
                     listOfJRadioButtons.get(i).setEnabled(false); 
             }
             else{
-                int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW (ODWROTNA DO POWYŻSZEJ)
+                int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW (ODWROTNA DO POWYŻSZEJ), W ZALEŻNOŚCI OD WYBRANEGO SPOSOBU KONTROLI DANYCH
                 for(; i<2; i++)
                     listOfJRadioButtons.get(i).setEnabled(false);         
                 for(; i<6; i++)
@@ -297,7 +297,7 @@ public class MainWindow extends JFrame{
                 }catch(Exception e){poleTekstoweWykryteBledy.setText(e.getMessage());}
             }
         //--------------------------------------------------------------------------------------------------------
-        private void hammingCheckingAndUpdatingTextFields(String receivedString){//GŁÓWNA LOGIKA SPRAWDZANIA BITAMY HAMMINGA
+        private void hammingCheckingAndUpdatingTextFields(String receivedString){//GŁÓWNA LOGIKA SPRAWDZANIA BITAMI HAMMINGA
             if( HammingController.isHammingProtectedWordCorrect(receivedString) ){
                 String hammingBitsDeletedWord = HammingController.deleteHammingBitsFromWord(receivedString);
                 Integer integerChar = Integer.parseInt(hammingBitsDeletedWord, 2);
