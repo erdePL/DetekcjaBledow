@@ -12,16 +12,18 @@ import java.util.*;
 import javax.swing.*;
 
 public class MainWindow extends JFrame{
-    int selectedRadioButtonTag = -1;
-    String przesylanyCiag = "";    
+    private int selectedRadioButtonTag = -1;
+    private String przesylanyCiag = "";
 //--------------------------------------------------------------------------------------------------------
     public MainWindow(){  //OPERACJE INICJALIZACJI OKNA
         super("Detekcja Błędów");
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container okno = getContentPane();
         SpringLayout layoutSprezynowy = new SpringLayout();
         okno.setLayout(layoutSprezynowy);
+        this.setResizable(false);
+
 //--------------------------------------------------------------------------------------------------------
     ArrayList<JLabel> listOfLabels = new ArrayList<>(); //DODAWANIE ETYKIET
     JLabel etykietaWyslanyZnak = new JLabel("Wysłany znak: ");listOfLabels.add(etykietaWyslanyZnak);     
@@ -92,7 +94,7 @@ public class MainWindow extends JFrame{
             @Override
             public void itemStateChanged(ItemEvent e) {
                 Integer textFieldIndex = Integer.parseInt(roboczyRadioButton.getName() );
-                    JTextField fieldToChangeState = (JTextField)listOfDataControlTextFields.get(textFieldIndex);
+                    JTextField fieldToChangeState = listOfDataControlTextFields.get(textFieldIndex);
                 if(roboczyRadioButton.isSelected())
                     fieldToChangeState.setEditable(true);//Każde z tych pol nasluchuje zmiany stanu na "editable".
                                                          //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola tekstowe
@@ -120,7 +122,7 @@ public class MainWindow extends JFrame{
 
             if( ! poleTekstoweWyslanyZnak.getText().isEmpty()){//KONWERSJA ZNAKU NA BINARNY
                 String inString = poleTekstoweWyslanyZnak.getText();
-                String binaryString = "";
+                String binaryString;
                 binaryString = ParityControllerPositive.convertStringToBinaryString(inString);                                
                 poleTekstoweWyslanyBinarny.setText(binaryString);
                 
@@ -236,9 +238,9 @@ public class MainWindow extends JFrame{
             if(poprawne){
                 poleTekstoweOdebranyCiag.setText( receivedString );
 
-                String polynomialString = "";//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
+                String polynomialString;//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
                 PolynomialData data;
-                PolynomialData checksumPolDat = null;
+                PolynomialData checksumPolDat;
 
                 switch (selectedRadioButtonTag){//INICJALIZACJA DANYCH W ZALEZNOSCI OD WYBRANEGO TYPU SPRAWDZANIA POPRAWNOSCI,
                     case 0:                     //ORAZ WYWOLANIE ODPOWIADAJACYCH FUNKCJI SPRAWDZAJACYCH
@@ -302,9 +304,7 @@ public class MainWindow extends JFrame{
                 String hammingBitsDeletedWord = HammingController.deleteHammingBitsFromWord(receivedString);
                 Integer integerChar = Integer.parseInt(hammingBitsDeletedWord, 2);
                 char convertedChar = (char) integerChar.intValue();
-                StringBuilder finalChar = new StringBuilder("");
-                finalChar.append(convertedChar);
-                poleTekstoweOdebranyZnak.setText(finalChar.toString());
+                poleTekstoweOdebranyZnak.setText("" + convertedChar);
                 poleTekstoweWykryteBledy.setText("");
                 poleTekstowePoprawionyBinarny.setText("");
             }else{
@@ -364,7 +364,7 @@ public class MainWindow extends JFrame{
 
             PolynomialData dataToCheck = new PolynomialData(receivedData,polynomialFormat);//NADAWANIE WIELOMIANOWI WLASCIWEGO FORMATU
             dataToCheck.computeData(checksum.returnAsString());
-            String validationMessage = "";
+            String validationMessage;
             if(dataToCheck.returnAsString().equals(polynomial))
                 validationMessage = " - Dane prawidłowe";
             else
@@ -376,5 +376,6 @@ public class MainWindow extends JFrame{
        
     poleTekstoweWyslanyZnak.setEditable(true);
     this.setSize(600, 430);
+    this.setLocationRelativeTo(null);
     }
 }
