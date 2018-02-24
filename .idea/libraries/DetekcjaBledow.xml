@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="DetekcjaBledow">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/DetekcjaBledow.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
