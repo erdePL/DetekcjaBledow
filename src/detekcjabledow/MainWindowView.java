@@ -16,13 +16,9 @@ class MainWindowView extends JFrame{
 //--------------------------------------------------------------------------------------------------------
 MainWindowView(){  //OPERACJE INICJALIZACJI OKNA
         super("Detekcja Błędów");
-        this.setVisible(true);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Container okno = getContentPane();
         SpringLayout layoutSprezynowy = new SpringLayout();
         okno.setLayout(layoutSprezynowy);
-        this.setResizable(false);
-
 //--------------------------------------------------------------------------------------------------------
     ArrayList<JLabel> listOfLabels = new ArrayList<>(); //DODAWANIE ETYKIET
     JLabel etykietaWyslanyZnak = new JLabel("Wysłany znak: ");listOfLabels.add(etykietaWyslanyZnak);     
@@ -119,9 +115,14 @@ controller = new MainWindowController(listOfTextFields, grupaRadiowa, listOfJRad
     //DO TEGO POLA PRZYPISANA JEST GŁÓWNA LOGIKA APLIKACJI
     poleTekstoweDoZaklocenia.addActionListener(ae -> controller.doZakloceniaActionPerformed());
 //--------------------------------------------------------------------------------------------------------
-       
+    this.pack();
+    this.setVisible(true);
+    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    this.setResizable(false);
     poleTekstoweWyslanyZnak.setEditable(true);
     this.setSize(600, 430);
     this.setLocationRelativeTo(null);
+
     }
+
 }
