@@ -15,10 +15,9 @@ class MainWindowView extends JFrame{
     private MainWindowController controller;
 //--------------------------------------------------------------------------------------------------------
 MainWindowView(){  //OPERACJE INICJALIZACJI OKNA
-        super("Detekcja Błędów");
-        Container okno = getContentPane();
-        SpringLayout layoutSprezynowy = new SpringLayout();
-        okno.setLayout(layoutSprezynowy);
+    super("Detekcja Błędów");
+    Container okno = getContentPane();
+    okno.setLayout(new GridBagLayout());
 //--------------------------------------------------------------------------------------------------------
     ArrayList<JLabel> listOfLabels = new ArrayList<>(); //DODAWANIE ETYKIET
     JLabel etykietaWyslanyZnak = new JLabel("Wysłany znak: ");listOfLabels.add(etykietaWyslanyZnak);     
@@ -34,16 +33,16 @@ MainWindowView(){  //OPERACJE INICJALIZACJI OKNA
     JLabel etykietaOdebranyCiag = new JLabel("Odebrany Ciąg:");listOfLabels.add(etykietaOdebranyCiag);    
     JLabel etykietaWykryteBledy = new JLabel("Wykryte Błędy:");listOfLabels.add(etykietaWykryteBledy);   
     JLabel etykietaPoprawionyBinarny = new JLabel("Poprawiony Binarny:");listOfLabels.add(etykietaPoprawionyBinarny);    
-    JLabel etykietaOdebranyCiagZnakow = new JLabel("Odebrany Znak:");listOfLabels.add(etykietaOdebranyCiagZnakow);      
+    JLabel etykietaOdebranyCiagZnakow = new JLabel("Odebrany Znak:");listOfLabels.add(etykietaOdebranyCiagZnakow);
     {int distanceFromNorthOfTheWindow = 10;
         for(JLabel element : listOfLabels){
             layoutSprezynowy.putConstraint(SpringLayout.WEST, element, 10, SpringLayout.WEST, okno);
             layoutSprezynowy.putConstraint(SpringLayout.NORTH, element, distanceFromNorthOfTheWindow, SpringLayout.NORTH, okno);
             okno.add(element);
-            element.setPreferredSize(new Dimension(400, 20)); 
+            element.setPreferredSize(new Dimension(400, 20));
 
             distanceFromNorthOfTheWindow += 25;
-        } 
+        }
     }
 //--------------------------------------------------------------------------------------------------------
     ArrayList<JTextField> listOfDataControlTextFields = new ArrayList();//DODAWANIE PÓL TEKSTOWYCH
