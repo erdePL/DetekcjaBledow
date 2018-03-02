@@ -9,51 +9,52 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MainWindowController {
-    private JTextField poleTekstoweWyslanyZnak;
-    private JTextField poleTekstoweWyslanyBinarny;
-    private JTextField poleTekstoweBitParzystosci;
-    private JTextField poleTekstoweBityHaminga;
-    private JTextField poleTekstoweWielomianCRC16;
-    private JTextField poleTekstoweWielomianCRC32;
-    private JTextField poleTekstoweWielomianCRCITU;
-    private JTextField poleTekstoweWielomianSDLC;
-    private JTextField poleTekstowePrzesylanyCiag;
-    private JTextField poleTekstoweDoZaklocenia;
-    private JTextField poleTekstoweOdebranyCiag;
-    private JTextField poleTekstoweWykryteBledy;
-    private JTextField poleTekstowePoprawionyBinarny;
-    private JTextField poleTekstoweOdebranyZnak;
-    private ButtonGroup grupaRadiowa;
+    private JTextField textFieldCharToSend;
+    private JTextField textFieldCharToSendBinary;
+    private JTextField textFieldParityBit;
+    private JTextField textFieldHammingsBits;
+    private JTextField textFieldPolynomialCrc16;
+    private JTextField textFieldPolynomialCrc32;
+    private JTextField textFieldPolynomialCrcItu;
+    private JTextField textFieldPolynomialSdlc;
+    private JTextField textFieldSentSequence;
+    private JTextField textFieldSequenceToDisrupt;
+    private JTextField textFieldReceivedSequence;
+    private JTextField textFieldDetectedErrors;
+    private JTextField textFieldCorrectedBinary;
+    private JTextField textFieldReceivedChar;
+    private ButtonGroup radioButtonsGroup;
     private ArrayList<JTextField> listOfDataControlTextFields;
-    private ArrayList<JTextField> listOfTextFields;
+    private ArrayList<JTextField> listOfAllTextFields;
     private ArrayList<JRadioButton> listOfJRadioButtons;
     private int selectedRadioButtonTag;
-    private String przesylanyCiag;
-    private Container okno;
+    private String sentSequence;
+    private Container windowContainer;
 
-    MainWindowController(ArrayList<JTextField> textFields, ButtonGroup grupaRadiowa, ArrayList<JRadioButton> radioButtons, Container okno) {
+    MainWindowController(ArrayList<JTextField> textFields, ButtonGroup radioButtonsGroup, ArrayList<JRadioButton> radioButtons, Container windowContainer) {
 
-        listOfTextFields = new ArrayList<>();
-        this.poleTekstoweWyslanyZnak = textFields.get(0);       listOfTextFields.add(poleTekstoweWyslanyZnak);
-        this.poleTekstoweWyslanyBinarny = textFields.get(1);    listOfTextFields.add(poleTekstoweWyslanyBinarny);
+        listOfAllTextFields = new ArrayList<>();
+        this.textFieldCharToSend = textFields.get(0);       listOfAllTextFields.add(textFieldCharToSend);
+        this.textFieldCharToSendBinary = textFields.get(1);    listOfAllTextFields.add(textFieldCharToSendBinary);
         listOfDataControlTextFields = new ArrayList<>();
-        this.poleTekstoweBitParzystosci = textFields.get(2);    listOfTextFields.add(poleTekstoweBitParzystosci);listOfDataControlTextFields.add(poleTekstoweBitParzystosci);
-        this.poleTekstoweBityHaminga = textFields.get(3);       listOfTextFields.add(poleTekstoweBityHaminga);listOfDataControlTextFields.add(poleTekstoweBityHaminga);
-        this.poleTekstoweWielomianCRC16 = textFields.get(4);    listOfTextFields.add(poleTekstoweWielomianCRC16);listOfDataControlTextFields.add(poleTekstoweWielomianCRC16);
-        this.poleTekstoweWielomianCRC32 = textFields.get(5);    listOfTextFields.add(poleTekstoweWielomianCRC32);listOfDataControlTextFields.add(poleTekstoweWielomianCRC32);
-        this.poleTekstoweWielomianCRCITU = textFields.get(6);   listOfTextFields.add(poleTekstoweWielomianCRCITU);listOfDataControlTextFields.add(poleTekstoweWielomianCRCITU);
-        this.poleTekstoweWielomianSDLC = textFields.get(7);     listOfTextFields.add(poleTekstoweWielomianSDLC);listOfDataControlTextFields.add(poleTekstoweWielomianSDLC);
-        this.poleTekstowePrzesylanyCiag = textFields.get(8);    listOfTextFields.add(poleTekstowePrzesylanyCiag);
-        this.poleTekstoweDoZaklocenia = textFields.get(9);      listOfTextFields.add(poleTekstoweDoZaklocenia);
-        this.poleTekstoweOdebranyCiag = textFields.get(10);     listOfTextFields.add(poleTekstoweOdebranyCiag);
-        this.poleTekstoweWykryteBledy = textFields.get(11);     listOfTextFields.add(poleTekstoweWykryteBledy);
-        this.poleTekstowePoprawionyBinarny = textFields.get(12);listOfTextFields.add(poleTekstowePoprawionyBinarny);
-        this.poleTekstoweOdebranyZnak = textFields.get(13);     listOfTextFields.add(poleTekstoweOdebranyZnak);
-        this.grupaRadiowa = grupaRadiowa;
+        this.textFieldParityBit = textFields.get(2);    listOfAllTextFields.add(textFieldParityBit);listOfDataControlTextFields.add(textFieldParityBit);
+        this.textFieldHammingsBits = textFields.get(3);       listOfAllTextFields.add(textFieldHammingsBits);listOfDataControlTextFields.add(textFieldHammingsBits);
+        this.textFieldPolynomialCrc16 = textFields.get(4);    listOfAllTextFields.add(textFieldPolynomialCrc16);listOfDataControlTextFields.add(textFieldPolynomialCrc16);
+        this.textFieldPolynomialCrc32 = textFields.get(5);    listOfAllTextFields.add(textFieldPolynomialCrc32);listOfDataControlTextFields.add(textFieldPolynomialCrc32);
+        this.textFieldPolynomialCrcItu = textFields.get(6);   listOfAllTextFields.add(textFieldPolynomialCrcItu);listOfDataControlTextFields.add(textFieldPolynomialCrcItu);
+        this.textFieldPolynomialSdlc = textFields.get(7);     listOfAllTextFields.add(textFieldPolynomialSdlc);listOfDataControlTextFields.add(textFieldPolynomialSdlc);
+        this.textFieldSentSequence = textFields.get(8);    listOfAllTextFields.add(textFieldSentSequence);
+        this.textFieldSequenceToDisrupt = textFields.get(9);      listOfAllTextFields.add(textFieldSequenceToDisrupt);
+        this.textFieldReceivedSequence = textFields.get(10);     listOfAllTextFields.add(textFieldReceivedSequence);
+        this.textFieldDetectedErrors = textFields.get(11);     listOfAllTextFields.add(textFieldDetectedErrors);
+        this.textFieldCorrectedBinary = textFields.get(12);
+        listOfAllTextFields.add(textFieldCorrectedBinary);
+        this.textFieldReceivedChar = textFields.get(13);     listOfAllTextFields.add(textFieldReceivedChar);
+        this.radioButtonsGroup = radioButtonsGroup;
         this.listOfJRadioButtons = radioButtons;
         this.selectedRadioButtonTag = -1;
-        this.przesylanyCiag = "";
-        this.okno = okno;
+        this.sentSequence = "";
+        this.windowContainer = windowContainer;
     }
 
     public void radioButtonItemStateChanged(JRadioButton roboczyRadioButton){
@@ -65,22 +66,22 @@ public class MainWindowController {
         else{
             fieldToChangeState.setText("");//Jako że wybranie radio buttona prowadzi do potencjalnej zmiany wszystkich danych,
         }                                  //za każdym razem należy pozbyć się znajdującej się w polach treści
-        poleTekstoweOdebranyCiag.setText("");
-        poleTekstoweWykryteBledy.setText("");
-        poleTekstowePoprawionyBinarny.setText("");
-        poleTekstoweOdebranyZnak.setText("");
+        textFieldReceivedSequence.setText("");
+        textFieldDetectedErrors.setText("");
+        textFieldCorrectedBinary.setText("");
+        textFieldReceivedChar.setText("");
     }
     public void wyslanyZnakActionPerformed(){
-        for(int i = 1; i<listOfTextFields.size(); i++)//RESET STANU OKNA
-            listOfTextFields.get(i).setText("");
-        poleTekstoweDoZaklocenia.setEditable(false);
-        grupaRadiowa.clearSelection();
+        for(int i = 1; i< listOfAllTextFields.size(); i++)//RESET STANU OKNA
+            listOfAllTextFields.get(i).setText("");
+        textFieldSequenceToDisrupt.setEditable(false);
+        radioButtonsGroup.clearSelection();
 
-        if( ! poleTekstoweWyslanyZnak.getText().isEmpty()){//KONWERSJA ZNAKU NA BINARNY
-            String inString = poleTekstoweWyslanyZnak.getText();
+        if( ! textFieldCharToSend.getText().isEmpty()){//KONWERSJA ZNAKU NA BINARNY
+            String inString = textFieldCharToSend.getText();
             String binaryString;
             binaryString = ParityControllerPositive.convertStringToBinaryString(inString);
-            poleTekstoweWyslanyBinarny.setText(binaryString);
+            textFieldCharToSendBinary.setText(binaryString);
 
             int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW
             for(; i<2; i++)
@@ -98,71 +99,71 @@ public class MainWindowController {
     }
     public void bitParzystosciPropertyChanged(){
         selectedRadioButtonTag = 0;
-        poleTekstoweBitParzystosci.setText(ParityControllerPositive.calculateParityBitForBinaryString(poleTekstoweWyslanyBinarny.getText()) );
-        poleTekstowePrzesylanyCiag.setText(ParityControllerPositive.convertStringToParityProtectedBinaryString(poleTekstoweWyslanyZnak.getText()));
-        poleTekstoweDoZaklocenia.setEditable(true);
-        poleTekstoweDoZaklocenia.setText(poleTekstowePrzesylanyCiag.getText());
-        poleTekstoweBitParzystosci.setEditable(false);
+        textFieldParityBit.setText(ParityControllerPositive.calculateParityBitForBinaryString(textFieldCharToSendBinary.getText()) );
+        textFieldSentSequence.setText(ParityControllerPositive.convertStringToParityProtectedBinaryString(textFieldCharToSend.getText()));
+        textFieldSequenceToDisrupt.setEditable(true);
+        textFieldSequenceToDisrupt.setText(textFieldSentSequence.getText());
+        textFieldParityBit.setEditable(false);
     }
     public void bityHammingaPropertyChanged(){
         selectedRadioButtonTag = 1;
-        poleTekstowePrzesylanyCiag.setText(HammingController.addHammingControlToString(poleTekstoweWyslanyBinarny.getText()));
-        poleTekstoweBityHaminga.setText( HammingController.getParityBitsFromHammingWord(poleTekstowePrzesylanyCiag.getText()) );
-        poleTekstoweDoZaklocenia.setEditable(true);
-        poleTekstoweDoZaklocenia.setText(poleTekstowePrzesylanyCiag.getText());
-        poleTekstoweBityHaminga.setEditable(false);
+        textFieldSentSequence.setText(HammingController.addHammingControlToString(textFieldCharToSendBinary.getText()));
+        textFieldHammingsBits.setText( HammingController.getParityBitsFromHammingWord(textFieldSentSequence.getText()) );
+        textFieldSequenceToDisrupt.setEditable(true);
+        textFieldSequenceToDisrupt.setText(textFieldSentSequence.getText());
+        textFieldHammingsBits.setEditable(false);
     }
     public void wielomianCRC16PropertyChanged(){
         selectedRadioButtonTag = 2;
         PolynomialData data2 = new PolynomialData(1,13,2,1);
-        poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
-        przesylanyCiag = data2.returnAsString();
-        poleTekstoweDoZaklocenia.setEditable(true);
-        poleTekstoweDoZaklocenia.setText(data2.returnAsString());
-        poleTekstoweWielomianCRC16.setText("11000000000000101");
-        poleTekstoweWielomianCRC16.setEditable(false);
+        textFieldSentSequence.setText(data2.returnAsString());
+        sentSequence = data2.returnAsString();
+        textFieldSequenceToDisrupt.setEditable(true);
+        textFieldSequenceToDisrupt.setText(data2.returnAsString());
+        textFieldPolynomialCrc16.setText("11000000000000101");
+        textFieldPolynomialCrc16.setEditable(false);
     }
     public void wielomianCRC32PropertyChanged(){
         selectedRadioButtonTag = 3;
         PolynomialData data2 = new PolynomialData(6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
-        poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
-        przesylanyCiag = data2.returnAsString();
-        poleTekstoweDoZaklocenia.setEditable(true);
-        poleTekstoweDoZaklocenia.setText(data2.returnAsString());
-        poleTekstoweWielomianCRC32.setText("100000100110000010001110110110111");
-        poleTekstoweWielomianCRC32.setEditable(false);
+        textFieldSentSequence.setText(data2.returnAsString());
+        sentSequence = data2.returnAsString();
+        textFieldSequenceToDisrupt.setEditable(true);
+        textFieldSequenceToDisrupt.setText(data2.returnAsString());
+        textFieldPolynomialCrc32.setText("100000100110000010001110110110111");
+        textFieldPolynomialCrc32.setEditable(false);
     }
     public void wielomianCRCITUPropertyChanged(){
         selectedRadioButtonTag = 4;
         PolynomialData data2 = new PolynomialData(4,7,4,1,1);
-        poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
-        przesylanyCiag = data2.returnAsString();
-        poleTekstoweDoZaklocenia.setEditable(true);
-        poleTekstoweDoZaklocenia.setText(data2.returnAsString());
-        poleTekstoweWielomianCRCITU.setText("10001000000100001");
-        poleTekstoweWielomianCRCITU.setEditable(false);
+        textFieldSentSequence.setText(data2.returnAsString());
+        sentSequence = data2.returnAsString();
+        textFieldSequenceToDisrupt.setEditable(true);
+        textFieldSequenceToDisrupt.setText(data2.returnAsString());
+        textFieldPolynomialCrcItu.setText("10001000000100001");
+        textFieldPolynomialCrcItu.setEditable(false);
     }
     public void wielomianSDLCPropertyChanged(){
         selectedRadioButtonTag = 5;
         PolynomialData data2 = new PolynomialData(4,7,4,1,1);
-        poleTekstowePrzesylanyCiag.setText(data2.returnAsString());
-        przesylanyCiag = data2.returnAsString();
-        poleTekstoweDoZaklocenia.setEditable(true);
-        poleTekstoweDoZaklocenia.setText(data2.returnAsString());
-        poleTekstoweWielomianSDLC.setText("10001000000100101");
-        poleTekstoweWielomianSDLC.setEditable(false);
+        textFieldSentSequence.setText(data2.returnAsString());
+        sentSequence = data2.returnAsString();
+        textFieldSequenceToDisrupt.setEditable(true);
+        textFieldSequenceToDisrupt.setText(data2.returnAsString());
+        textFieldPolynomialSdlc.setText("10001000000100101");
+        textFieldPolynomialSdlc.setEditable(false);
     }
     public void doZakloceniaActionPerformed(){
-        String receivedString = poleTekstoweDoZaklocenia.getText();
+        String receivedString = textFieldSequenceToDisrupt.getText();
         boolean poprawne = isStringBinaryDigitsOnly(receivedString);//SPRAWDZANIE POPRAWNOSCI DANYCH WPROWADZONYCH PRZEZ UZYTKOWNIKA
         if(!poprawne)
-            JOptionPane.showMessageDialog(okno, "W polu tekstowym znajdują się symbole inne niż \"0\" i \"1\"");
-        if(poleTekstoweDoZaklocenia.getText().length() != poleTekstowePrzesylanyCiag.getText().length()){
+            JOptionPane.showMessageDialog(windowContainer, "W polu tekstowym znajdują się symbole inne niż \"0\" i \"1\"");
+        if(textFieldSequenceToDisrupt.getText().length() != textFieldSentSequence.getText().length()){
             poprawne = false;
-            JOptionPane.showMessageDialog(okno, "Liczba znaków nie odpowiada przesyłanemu ciągowi!");
+            JOptionPane.showMessageDialog(windowContainer, "Liczba znaków nie odpowiada przesyłanemu ciągowi!");
         }
         if(poprawne){
-            poleTekstoweOdebranyCiag.setText( receivedString );
+            textFieldReceivedSequence.setText( receivedString );
 
             String polynomialString;//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
             PolynomialData data;
@@ -177,25 +178,25 @@ public class MainWindowController {
                     break;
                 case 2:
                     polynomialString = "11000000000000101";//crc16
-                    data = new PolynomialData(przesylanyCiag,1,13,2,1);
+                    data = new PolynomialData(sentSequence,1,13,2,1);
                     checksumPolDat = new PolynomialData(data.getParts());
                     polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                     break;
                 case 3:
                     polynomialString = "100000100110000010001110110110111";//crc32
-                    data = new PolynomialData(przesylanyCiag,6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
+                    data = new PolynomialData(sentSequence,6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
                     checksumPolDat = new PolynomialData(data.getParts());
                     polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                     break;
                 case 4:
                     polynomialString = "10001000000100001"; //crcItu
-                    data = new PolynomialData(przesylanyCiag,4,7,4,1,1);
+                    data = new PolynomialData(sentSequence,4,7,4,1,1);
                     checksumPolDat = new PolynomialData(data.getParts());
                     polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                     break;
                 case 5:
                     polynomialString = "10001000000100101"; //SDLC
-                    data = new PolynomialData(przesylanyCiag,4,7,4,1,1);
+                    data = new PolynomialData(sentSequence,4,7,4,1,1);
                     checksumPolDat = new PolynomialData(data.getParts());
                     polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
                     break;
@@ -215,47 +216,48 @@ public class MainWindowController {
     }
     private void parityCheckingAndUpdatingTextFields(String receivedString){//GŁÓWNA LOGIKA SPRAWDZANIA PARZYSTOŚCIĄ
         try{
-            poleTekstoweOdebranyZnak.setText("");
+            textFieldReceivedChar.setText("");
             ParityControllerPositive.convertParityProtectedBinaryStringToChar(receivedString);
             String text = (new StringBuilder().append( ParityControllerPositive.convertParityProtectedBinaryStringToChar(receivedString) )).toString();
-            poleTekstoweOdebranyZnak.setText( text );
-            poleTekstoweWykryteBledy.setText("");
-        }catch(Exception e){poleTekstoweWykryteBledy.setText(e.getMessage());}
+            textFieldReceivedChar.setText( text );
+            textFieldDetectedErrors.setText("");
+        }catch(Exception e){
+            textFieldDetectedErrors.setText(e.getMessage());}
     }
     private void hammingCheckingAndUpdatingTextFields(String receivedString){//GŁÓWNA LOGIKA SPRAWDZANIA BITAMI HAMMINGA
         if( HammingController.isHammingProtectedWordCorrect(receivedString) ){
             String hammingBitsDeletedWord = HammingController.deleteHammingBitsFromWord(receivedString);
             Integer integerChar = Integer.parseInt(hammingBitsDeletedWord, 2);
             char convertedChar = (char) integerChar.intValue();
-            poleTekstoweOdebranyZnak.setText("" + convertedChar);
-            poleTekstoweWykryteBledy.setText("");
-            poleTekstowePoprawionyBinarny.setText("");
+            textFieldReceivedChar.setText("" + convertedChar);
+            textFieldDetectedErrors.setText("");
+            textFieldCorrectedBinary.setText("");
         }else{
             int errorsCount = HammingController.countHammingBitErrors(receivedString);
-            poleTekstoweWykryteBledy.setText("Błędne bity parzystosci:"+errorsCount);
+            textFieldDetectedErrors.setText("Błędne bity parzystosci:"+errorsCount);
 
             String errorsPositions = HammingController.getErrorParityBitsPositions(receivedString);
-            poleTekstoweWykryteBledy.setText(poleTekstoweWykryteBledy.getText() +"   |na pozycjach:" + errorsPositions);
+            textFieldDetectedErrors.setText(textFieldDetectedErrors.getText() +"   |na pozycjach:" + errorsPositions);
 
             int errorLocation = HammingController.getBadBitBasedOnErrorParityBitsPositions(errorsPositions);
-            poleTekstoweWykryteBledy.setText(poleTekstoweWykryteBledy.getText() +"   |Przekłamany bit:" + errorLocation);
+            textFieldDetectedErrors.setText(textFieldDetectedErrors.getText() +"   |Przekłamany bit:" + errorLocation);
             StringBuilder poprawionyBinarny = new StringBuilder(receivedString);
             String bitDoPoprawy = Character.toString(poprawionyBinarny.charAt(errorLocation-1));
             String poprawionyBit = "1".equals(bitDoPoprawy)?"0":"1";
             poprawionyBinarny.replace(errorLocation-1, errorLocation, poprawionyBit);
-            poleTekstowePoprawionyBinarny.setText(poprawionyBinarny.toString());
+            textFieldCorrectedBinary.setText(poprawionyBinarny.toString());
 
             String bezHammingaString = HammingController.deleteHammingBitsFromWord(poprawionyBinarny.toString());
             Integer bezHammingaInt = Integer.parseInt(bezHammingaString,2);
             char odczytanyZnakChar = (char) bezHammingaInt.intValue();
             String odczytanyZnakSBuilder = Character.toString(odczytanyZnakChar);
-            poleTekstoweOdebranyZnak.setText(odczytanyZnakSBuilder);
+            textFieldReceivedChar.setText(odczytanyZnakSBuilder);
         }
     }
     private void polynomialCheckingAndUpdatingTextFields(PolynomialData checksum, String polynomial){//GŁÓWNA LOGIKA SPRAWDZANIA WIELOMIANEM
         checksum.computeData(polynomial);
-        String receivedData = poleTekstoweDoZaklocenia.getText();
-        poleTekstoweOdebranyCiag.setText( receivedData );
+        String receivedData = textFieldSequenceToDisrupt.getText();
+        textFieldReceivedSequence.setText( receivedData );
 
         int[] polynomialFormat;
         switch (polynomial){//TWORZENIE TABLICY FORMATU WIELOMIANU
@@ -291,6 +293,6 @@ public class MainWindowController {
             validationMessage = " - Dane prawidłowe";
         else
             validationMessage = " - Dane nie prawidłowe";
-        poleTekstoweWykryteBledy.setText(dataToCheck.returnAsString()+ "" +validationMessage);
+        textFieldDetectedErrors.setText(dataToCheck.returnAsString()+ "" +validationMessage);
     }
 }

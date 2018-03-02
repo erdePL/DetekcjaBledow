@@ -75,7 +75,7 @@ MainWindowView(){  //OPERACJE INICJALIZACJI OKNA
 //--------------------------------------------------------------------------------------------------------
     ArrayList<JRadioButton> listOfJRadioButtons = new ArrayList();//DODAWANIE RADIO BUTTONOW....
     ButtonGroup grupaRadiowa = new ButtonGroup();
-    index = 1;
+    index = 2;
     c.gridx = 1;
     c.weightx = 0;
     for(Integer i = 0;  i<6; i++){
@@ -83,8 +83,9 @@ MainWindowView(){  //OPERACJE INICJALIZACJI OKNA
         grupaRadiowa.add(roboczyRadioButton);
         listOfJRadioButtons.add(roboczyRadioButton);
         roboczyRadioButton.setName(i.toString());
-        if(i<2)
-        roboczyRadioButton.setEnabled(false);
+        if(i<2) {
+            roboczyRadioButton.setEnabled(false);
+        }
         c.gridy = index++;
         okno.add(roboczyRadioButton,c);
     }
