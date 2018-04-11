@@ -61,7 +61,7 @@ public class MainWindowController {
         JTextField fieldToChangeState = listOfDataControlTextFields.get(textFieldIndex);
         if(rb.isSelected())
             fieldToChangeState.setEditable(true);//Każde z tych pol nasluchuje zmiany stanu na "editable".
-            //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola tekstowe
+            //Taka zmiana stanu wywołuje skrypt wygenerowania danych i wypełnia nimi pola tekstowe
         else{
             fieldToChangeState.setText("");//Jako że wybranie radio buttona prowadzi do potencjalnej zmiany wszystkich danych,
         }                                  //za każdym razem należy pozbyć się znajdującej się w polach treści
@@ -84,7 +84,7 @@ public class MainWindowController {
     }
 
     private void resetWindow(){
-        for(int i = 1; i< listOfAllTextFields.size(); i++)//RESET STANU OKNA
+        for(int i = 1; i< listOfAllTextFields.size(); i++)
             listOfAllTextFields.get(i).setText("");
         textFieldSequenceToDisrupt.setEditable(false);
         radioButtonsGroup.clearSelection();
@@ -164,7 +164,7 @@ public class MainWindowController {
         textFieldSequenceToDisrupt.setEditable(true);
     }
 
-    public void doZakloceniaActionPerformed(){//SPRAWDZANIE POPRAWNOSCI DANYCH WPROWADZONYCH PRZEZ UZYTKOWNIKA
+    public void doZakloceniaActionPerformed(){//SPRAWDZANIE POPRAWNOSCI FORMATU DANYCH WPROWADZONYCH PRZEZ UZYTKOWNIKA
         String receivedString = textFieldSequenceToDisrupt.getText();
         boolean userInputCorrect = isInStringCorrect(receivedString);
         if(userInputCorrect){
@@ -203,7 +203,7 @@ public class MainWindowController {
 
         textFieldReceivedSequence.setText( receivedString );
 
-        String polynomialString;//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
+        String polynomialString;
         PolynomialData data;
         PolynomialData checksumPolDat;
 
