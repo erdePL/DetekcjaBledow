@@ -1,8 +1,8 @@
 package detekcjabledow;
 
-import businesslogic.HammingController;
-import businesslogic.ParityControllerPositive;
-import businesslogic.PolynomialData;
+import businesslogic.ParityControl.HammingController;
+import businesslogic.ParityControl.ParityControllerPositive;
+import businesslogic.PolynomialControl.PolynomialData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,18 +37,17 @@ public class MainWindowController {
         this.textFieldCharToSend = textFields.get(0);       listOfAllTextFields.add(textFieldCharToSend);
         this.textFieldCharToSendBinary = textFields.get(1);    listOfAllTextFields.add(textFieldCharToSendBinary);
         listOfDataControlTextFields = new ArrayList<>();
-        this.textFieldParityBit = textFields.get(2);    listOfAllTextFields.add(textFieldParityBit);listOfDataControlTextFields.add(textFieldParityBit);
-        this.textFieldHammingsBits = textFields.get(3);       listOfAllTextFields.add(textFieldHammingsBits);listOfDataControlTextFields.add(textFieldHammingsBits);
-        this.textFieldPolynomialCrc16 = textFields.get(4);    listOfAllTextFields.add(textFieldPolynomialCrc16);listOfDataControlTextFields.add(textFieldPolynomialCrc16);
-        this.textFieldPolynomialCrc32 = textFields.get(5);    listOfAllTextFields.add(textFieldPolynomialCrc32);listOfDataControlTextFields.add(textFieldPolynomialCrc32);
-        this.textFieldPolynomialCrcItu = textFields.get(6);   listOfAllTextFields.add(textFieldPolynomialCrcItu);listOfDataControlTextFields.add(textFieldPolynomialCrcItu);
-        this.textFieldPolynomialSdlc = textFields.get(7);     listOfAllTextFields.add(textFieldPolynomialSdlc);listOfDataControlTextFields.add(textFieldPolynomialSdlc);
+        this.textFieldParityBit = textFields.get(2);    listOfAllTextFields.add(textFieldParityBit);    listOfDataControlTextFields.add(textFieldParityBit);
+        this.textFieldHammingsBits = textFields.get(3);       listOfAllTextFields.add(textFieldHammingsBits);   listOfDataControlTextFields.add(textFieldHammingsBits);
+        this.textFieldPolynomialCrc16 = textFields.get(4);    listOfAllTextFields.add(textFieldPolynomialCrc16);    listOfDataControlTextFields.add(textFieldPolynomialCrc16);
+        this.textFieldPolynomialCrc32 = textFields.get(5);    listOfAllTextFields.add(textFieldPolynomialCrc32);    listOfDataControlTextFields.add(textFieldPolynomialCrc32);
+        this.textFieldPolynomialCrcItu = textFields.get(6);   listOfAllTextFields.add(textFieldPolynomialCrcItu);   listOfDataControlTextFields.add(textFieldPolynomialCrcItu);
+        this.textFieldPolynomialSdlc = textFields.get(7);     listOfAllTextFields.add(textFieldPolynomialSdlc); listOfDataControlTextFields.add(textFieldPolynomialSdlc);
         this.textFieldSentSequence = textFields.get(8);    listOfAllTextFields.add(textFieldSentSequence);
         this.textFieldSequenceToDisrupt = textFields.get(9);      listOfAllTextFields.add(textFieldSequenceToDisrupt);
         this.textFieldReceivedSequence = textFields.get(10);     listOfAllTextFields.add(textFieldReceivedSequence);
         this.textFieldDetectedErrors = textFields.get(11);     listOfAllTextFields.add(textFieldDetectedErrors);
-        this.textFieldCorrectedBinary = textFields.get(12);
-        listOfAllTextFields.add(textFieldCorrectedBinary);
+        this.textFieldCorrectedBinary = textFields.get(12); listOfAllTextFields.add(textFieldCorrectedBinary);
         this.textFieldReceivedChar = textFields.get(13);     listOfAllTextFields.add(textFieldReceivedChar);
         this.radioButtonsGroup = radioButtonsGroup;
         this.listOfJRadioButtons = radioButtons;
@@ -57,10 +56,10 @@ public class MainWindowController {
         this.windowContainer = windowContainer;
     }
 
-    public void radioButtonItemStateChanged(JRadioButton roboczyRadioButton){
-        Integer textFieldIndex = Integer.parseInt(roboczyRadioButton.getName() );
+    public void radioButtonItemStateChanged(JRadioButton rb){
+        Integer textFieldIndex = Integer.parseInt(rb.getName() );
         JTextField fieldToChangeState = listOfDataControlTextFields.get(textFieldIndex);
-        if(roboczyRadioButton.isSelected())
+        if(rb.isSelected())
             fieldToChangeState.setEditable(true);//Każde z tych pol nasluchuje zmiany stanu na "editable".
             //Taka zmiana stanu wywoluje skrypt wygenerowania danych i wypełnienia nimi pola tekstowe
         else{
@@ -71,6 +70,7 @@ public class MainWindowController {
         textFieldCorrectedBinary.setText("");
         textFieldReceivedChar.setText("");
     }
+
     public void wyslanyZnakActionPerformed(){
         for(int i = 1; i< listOfAllTextFields.size(); i++)//RESET STANU OKNA
             listOfAllTextFields.get(i).setText("");

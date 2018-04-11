@@ -1,9 +1,23 @@
 package detekcjabledow;
 
+import javax.swing.*;
+
 public class DetekcjaBledow {
 
-    public static void main(String[] args) {
+    public static void main (String[] args) {
 
-        MainWindowView appWindow = new MainWindowView();
+        SwingUtilities.invokeLater(() -> {
+            try {
+                createAndShowGUI();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public static void createAndShowGUI() throws Exception {
+        new MainWindowView();
     }
 }
+

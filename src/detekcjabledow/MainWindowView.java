@@ -1,13 +1,8 @@
 package detekcjabledow;
 
-import businesslogic.PolynomialData;
-import businesslogic.HammingController;
 import businesslogic.LengthRestrictedDocument;
-import businesslogic.ParityControllerPositive;
+
 import java.awt.*;
-import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.*;
 import javax.swing.*;
 
