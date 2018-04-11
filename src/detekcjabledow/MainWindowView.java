@@ -91,19 +91,19 @@ controller = new MainWindowController(listOfTextFields, grupaRadiowa, listOfJRad
         roboczy.addItemListener(e -> controller.radioButtonItemStateChanged(roboczy));
     }
 //--------------------------------------------------------------------------------------------------------
-    poleTekstoweWyslanyZnak.addActionListener(ae -> controller.wyslanyZnakActionPerformed());
+    poleTekstoweWyslanyZnak.addActionListener(ae -> controller.wyslanyZnakEnterPressed());
 //--------------------------------------------------------------------------------------------------------    
-    poleTekstoweBitParzystosci.addPropertyChangeListener("editable", evt -> controller.bitParzystosciPropertyChanged());
+    poleTekstoweBitParzystosci.addPropertyChangeListener("editable", evt -> controller.bitParzystosciSelected());
 //--------------------------------------------------------------------------------------------------------    
-    poleTekstoweBityHaminga.addPropertyChangeListener("editable", evt -> controller.bityHammingaPropertyChanged());
+    poleTekstoweBityHaminga.addPropertyChangeListener("editable", evt -> controller.bityHammingaSelected());
 //--------------------------------------------------------------------------------------------------------
-    poleTekstoweWielomianCRC16.addPropertyChangeListener("editable", evt -> controller.wielomianCRC16PropertyChanged());
+    poleTekstoweWielomianCRC16.addPropertyChangeListener("editable", evt -> controller.wielomianCRC16Selected());
 //--------------------------------------------------------------------------------------------------------    
-    poleTekstoweWielomianCRC32.addPropertyChangeListener("editable", evt -> controller.wielomianCRC32PropertyChanged());
+    poleTekstoweWielomianCRC32.addPropertyChangeListener("editable", evt -> controller.wielomianCRC32Selected());
 //--------------------------------------------------------------------------------------------------------    
-    poleTekstoweWielomianCRCITU.addPropertyChangeListener("editable", evt -> controller.wielomianCRCITUPropertyChanged());
+    poleTekstoweWielomianCRCITU.addPropertyChangeListener("editable", evt -> controller.wielomianCRCITUSelected());
 //--------------------------------------------------------------------------------------------------------    
-    poleTekstoweWielomianSDLC.addPropertyChangeListener("editable", evt -> controller.wielomianSDLCPropertyChanged());
+    poleTekstoweWielomianSDLC.addPropertyChangeListener("editable", evt -> controller.wielomianSDLCSelected());
 //--------------------------------------------------------------------------------------------------------    
 //-------------------------------------------------------------------------------------------------------- 
 //-------------------------------------------------------------------------------------------------------- 

@@ -71,142 +71,126 @@ public class MainWindowController {
         textFieldReceivedChar.setText("");
     }
 
-    public void wyslanyZnakActionPerformed(){
+    public void wyslanyZnakEnterPressed(){
+        resetWindow();
+        if( ! textFieldCharToSend.getText().isEmpty()){
+            String inString = textFieldCharToSend.getText();
+            String binaryString = ParityControllerPositive.convertStringToBinaryString(inString);
+            textFieldCharToSendBinary.setText(binaryString);
+            activateParityRadioButtons();
+        }
+        else
+            activatePolynomialRadioButtons();
+    }
+
+    private void resetWindow(){
         for(int i = 1; i< listOfAllTextFields.size(); i++)//RESET STANU OKNA
             listOfAllTextFields.get(i).setText("");
         textFieldSequenceToDisrupt.setEditable(false);
         radioButtonsGroup.clearSelection();
-
-        if( ! textFieldCharToSend.getText().isEmpty()){//KONWERSJA ZNAKU NA BINARNY
-            String inString = textFieldCharToSend.getText();
-            String binaryString;
-            binaryString = ParityControllerPositive.convertStringToBinaryString(inString);
-            textFieldCharToSendBinary.setText(binaryString);
-
-            int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW
-            for(; i<2; i++)
-                listOfJRadioButtons.get(i).setEnabled(true);
-            for(; i<6; i++)
-                listOfJRadioButtons.get(i).setEnabled(false);
-        }
-        else{
-            int i = 0;//AKTYWACJA/DEZAKTYWACJA WŁAŚCIWYCH RADIO BUTTONOW (ODWROTNA DO POWYŻSZEJ), W ZALEŻNOŚCI OD WYBRANEGO SPOSOBU KONTROLI DANYCH
-            for(; i<2; i++)
-                listOfJRadioButtons.get(i).setEnabled(false);
-            for(; i<6; i++)
-                listOfJRadioButtons.get(i).setEnabled(true);
-        }
     }
-    public void bitParzystosciPropertyChanged(){
+
+    private void activateParityRadioButtons(){
+        int i = 0;
+        for(; i<2; i++)
+            listOfJRadioButtons.get(i).setEnabled(true);
+        for(; i<6; i++)
+            listOfJRadioButtons.get(i).setEnabled(false);
+    }
+
+    private void activatePolynomialRadioButtons(){
+        int i = 0;
+        for(; i<2; i++)
+            listOfJRadioButtons.get(i).setEnabled(false);
+        for(; i<6; i++)
+            listOfJRadioButtons.get(i).setEnabled(true);
+    }
+
+    public void bitParzystosciSelected(){
         selectedRadioButtonTag = 0;
         textFieldParityBit.setText(ParityControllerPositive.calculateParityBitForBinaryString(textFieldCharToSendBinary.getText()) );
-        textFieldSentSequence.setText(ParityControllerPositive.convertStringToParityProtectedBinaryString(textFieldCharToSend.getText()));
-        textFieldSequenceToDisrupt.setEditable(true);
-        textFieldSequenceToDisrupt.setText(textFieldSentSequence.getText());
         textFieldParityBit.setEditable(false);
+        sentSequence = ParityControllerPositive.convertStringToParityProtectedBinaryString(textFieldCharToSend.getText());
+        fillSentAndDisruptTextFields(sentSequence);
     }
-    public void bityHammingaPropertyChanged(){
+
+    public void bityHammingaSelected(){
         selectedRadioButtonTag = 1;
-        textFieldSentSequence.setText(HammingController.addHammingControlToString(textFieldCharToSendBinary.getText()));
         textFieldHammingsBits.setText( HammingController.getParityBitsFromHammingWord(textFieldSentSequence.getText()) );
-        textFieldSequenceToDisrupt.setEditable(true);
-        textFieldSequenceToDisrupt.setText(textFieldSentSequence.getText());
         textFieldHammingsBits.setEditable(false);
+        sentSequence = HammingController.addHammingControlToString(textFieldCharToSendBinary.getText());
+        fillSentAndDisruptTextFields(sentSequence);
     }
-    public void wielomianCRC16PropertyChanged(){
+
+    public void wielomianCRC16Selected(){
         selectedRadioButtonTag = 2;
         PolynomialData data2 = new PolynomialData(1,13,2,1);
-        textFieldSentSequence.setText(data2.returnAsString());
-        sentSequence = data2.returnAsString();
-        textFieldSequenceToDisrupt.setEditable(true);
-        textFieldSequenceToDisrupt.setText(data2.returnAsString());
         textFieldPolynomialCrc16.setText("11000000000000101");
         textFieldPolynomialCrc16.setEditable(false);
+        sentSequence = data2.returnAsString();
+        fillSentAndDisruptTextFields(sentSequence);
     }
-    public void wielomianCRC32PropertyChanged(){
+
+    public void wielomianCRC32Selected(){
         selectedRadioButtonTag = 3;
         PolynomialData data2 = new PolynomialData(6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
-        textFieldSentSequence.setText(data2.returnAsString());
-        sentSequence = data2.returnAsString();
-        textFieldSequenceToDisrupt.setEditable(true);
-        textFieldSequenceToDisrupt.setText(data2.returnAsString());
         textFieldPolynomialCrc32.setText("100000100110000010001110110110111");
         textFieldPolynomialCrc32.setEditable(false);
+        sentSequence = data2.returnAsString();
+        fillSentAndDisruptTextFields(sentSequence);
     }
-    public void wielomianCRCITUPropertyChanged(){
+
+    public void wielomianCRCITUSelected(){
         selectedRadioButtonTag = 4;
         PolynomialData data2 = new PolynomialData(4,7,4,1,1);
-        textFieldSentSequence.setText(data2.returnAsString());
-        sentSequence = data2.returnAsString();
-        textFieldSequenceToDisrupt.setEditable(true);
-        textFieldSequenceToDisrupt.setText(data2.returnAsString());
         textFieldPolynomialCrcItu.setText("10001000000100001");
         textFieldPolynomialCrcItu.setEditable(false);
+        sentSequence = data2.returnAsString();
+        fillSentAndDisruptTextFields(sentSequence);
     }
-    public void wielomianSDLCPropertyChanged(){
+
+    public void wielomianSDLCSelected(){
         selectedRadioButtonTag = 5;
         PolynomialData data2 = new PolynomialData(4,7,4,1,1);
-        textFieldSentSequence.setText(data2.returnAsString());
-        sentSequence = data2.returnAsString();
-        textFieldSequenceToDisrupt.setEditable(true);
-        textFieldSequenceToDisrupt.setText(data2.returnAsString());
         textFieldPolynomialSdlc.setText("10001000000100101");
         textFieldPolynomialSdlc.setEditable(false);
+        sentSequence = data2.returnAsString();
+        fillSentAndDisruptTextFields(sentSequence);
     }
-    public void doZakloceniaActionPerformed(){
+
+    private void fillSentAndDisruptTextFields(String sequence){
+        textFieldSentSequence.setText(sequence);
+        textFieldSequenceToDisrupt.setText(sequence);
+        textFieldSequenceToDisrupt.setEditable(true);
+    }
+
+    public void doZakloceniaActionPerformed(){//SPRAWDZANIE POPRAWNOSCI DANYCH WPROWADZONYCH PRZEZ UZYTKOWNIKA
         String receivedString = textFieldSequenceToDisrupt.getText();
-        boolean poprawne = isStringBinaryDigitsOnly(receivedString);//SPRAWDZANIE POPRAWNOSCI DANYCH WPROWADZONYCH PRZEZ UZYTKOWNIKA
-        if(!poprawne)
+        boolean userInputCorrect = isInStringCorrect(receivedString);
+        if(userInputCorrect){
+            callChechkingMethod(receivedString);
+        }
+    }
+
+    private boolean isInStringCorrect(String receivedString){
+        boolean binaryDigitsOnly = isStringBinaryDigitsOnly(receivedString);
+        if( ! binaryDigitsOnly)
             JOptionPane.showMessageDialog(windowContainer, "W polu tekstowym znajdują się symbole inne niż \"0\" i \"1\"");
+        boolean lengthCorrect = true;
         if(textFieldSequenceToDisrupt.getText().length() != textFieldSentSequence.getText().length()){
-            poprawne = false;
+            lengthCorrect = false;
             JOptionPane.showMessageDialog(windowContainer, "Liczba znaków nie odpowiada przesyłanemu ciągowi!");
         }
-        if(poprawne){
-            textFieldReceivedSequence.setText( receivedString );
 
-            String polynomialString;//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
-            PolynomialData data;
-            PolynomialData checksumPolDat;
-
-            switch (selectedRadioButtonTag){//INICJALIZACJA DANYCH W ZALEZNOSCI OD WYBRANEGO TYPU SPRAWDZANIA POPRAWNOSCI,
-                case 0:                     //ORAZ WYWOLANIE ODPOWIADAJACYCH FUNKCJI SPRAWDZAJACYCH
-                    parityCheckingAndUpdatingTextFields(receivedString);
-                    break;
-                case 1:
-                    hammingCheckingAndUpdatingTextFields(receivedString);
-                    break;
-                case 2:
-                    polynomialString = "11000000000000101";//crc16
-                    data = new PolynomialData(sentSequence,1,13,2,1);
-                    checksumPolDat = new PolynomialData(data.getParts());
-                    polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
-                    break;
-                case 3:
-                    polynomialString = "100000100110000010001110110110111";//crc32
-                    data = new PolynomialData(sentSequence,6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
-                    checksumPolDat = new PolynomialData(data.getParts());
-                    polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
-                    break;
-                case 4:
-                    polynomialString = "10001000000100001"; //crcItu
-                    data = new PolynomialData(sentSequence,4,7,4,1,1);
-                    checksumPolDat = new PolynomialData(data.getParts());
-                    polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
-                    break;
-                case 5:
-                    polynomialString = "10001000000100101"; //SDLC
-                    data = new PolynomialData(sentSequence,4,7,4,1,1);
-                    checksumPolDat = new PolynomialData(data.getParts());
-                    polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
-                    break;
-            }
-        }
+        if(binaryDigitsOnly && lengthCorrect)
+            return true;
+        else
+            return false;
     }
+
     private boolean isStringBinaryDigitsOnly(String receivedString) {
         char charToCheck;
         boolean isCorrect = true;
-
         for(int i = 0; i<receivedString.length(); i++){
             charToCheck = receivedString.charAt(i);
             if(charToCheck != '0' && charToCheck != '1')
@@ -214,6 +198,49 @@ public class MainWindowController {
         }
         return isCorrect;
     }
+
+    private void callChechkingMethod(String receivedString){
+
+        textFieldReceivedSequence.setText( receivedString );
+
+        String polynomialString;//DEKLARACJE ZMIENNYCH POTRZEBNYCH DO KONTROLI WIELOMIANEM (CRC16, CRC32...)
+        PolynomialData data;
+        PolynomialData checksumPolDat;
+
+        switch (selectedRadioButtonTag){//INICJALIZACJA DANYCH W ZALEZNOSCI OD WYBRANEGO TYPU SPRAWDZANIA POPRAWNOSCI,
+            case 0:                     //ORAZ WYWOLANIE ODPOWIADAJACYCH FUNKCJI SPRAWDZAJACYCH
+                parityCheckingAndUpdatingTextFields(receivedString);
+                break;
+            case 1:
+                hammingCheckingAndUpdatingTextFields(receivedString);
+                break;
+            case 2:
+                polynomialString = "11000000000000101";//crc16
+                data = new PolynomialData(sentSequence,1,13,2,1);
+                checksumPolDat = new PolynomialData(data.getParts());
+                polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
+                break;
+            case 3:
+                polynomialString = "100000100110000010001110110110111";//crc32
+                data = new PolynomialData(sentSequence,6,3,1,6,4,1,1,2,1,2,1,2,1,1,1);
+                checksumPolDat = new PolynomialData(data.getParts());
+                polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
+                break;
+            case 4:
+                polynomialString = "10001000000100001"; //crcItu
+                data = new PolynomialData(sentSequence,4,7,4,1,1);
+                checksumPolDat = new PolynomialData(data.getParts());
+                polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
+                break;
+            case 5:
+                polynomialString = "10001000000100101"; //SDLC
+                data = new PolynomialData(sentSequence,4,7,4,1,1);
+                checksumPolDat = new PolynomialData(data.getParts());
+                polynomialCheckingAndUpdatingTextFields(checksumPolDat,polynomialString);
+                break;
+        }
+    }
+
     private void parityCheckingAndUpdatingTextFields(String receivedString){//GŁÓWNA LOGIKA SPRAWDZANIA PARZYSTOŚCIĄ
         try{
             textFieldReceivedChar.setText("");
@@ -224,6 +251,7 @@ public class MainWindowController {
         }catch(Exception e){
             textFieldDetectedErrors.setText(e.getMessage());}
     }
+
     private void hammingCheckingAndUpdatingTextFields(String receivedString){//GŁÓWNA LOGIKA SPRAWDZANIA BITAMI HAMMINGA
         if( HammingController.isHammingProtectedWordCorrect(receivedString) ){
             String hammingBitsDeletedWord = HammingController.deleteHammingBitsFromWord(receivedString);
@@ -292,7 +320,7 @@ public class MainWindowController {
         if(dataToCheck.returnAsString().equals(polynomial))
             validationMessage = " - Dane prawidłowe";
         else
-            validationMessage = " - Dane nie prawidłowe";
+            validationMessage = " - Dane nieprawidłowe";
         textFieldDetectedErrors.setText(dataToCheck.returnAsString()+ "" +validationMessage);
     }
 }
